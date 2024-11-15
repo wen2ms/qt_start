@@ -9,9 +9,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     
     starting_btn->setText("Starting button");
     
-    QPushButton* end_btn = new QPushButton("End button", this);
+    QPushButton* exit_btn = new QPushButton("Exit button", this);
     
-    end_btn->move(200, 200);
+    exit_btn->move(200, 200);
+    
+    connect(exit_btn, &QPushButton::clicked, this, &Widget::close);
     
     resize(600, 400);
     

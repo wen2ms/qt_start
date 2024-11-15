@@ -15,6 +15,8 @@ class Widget : public QWidget {
     
     void time_6_oclock();
     
+    void time_6_oclock(QString color);
+    
   private:
     Dog* dog_;
     Master* master_;

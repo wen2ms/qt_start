@@ -10,6 +10,8 @@ class Master : public QObject {
 
   signals:
     void ring_the_bell();
+    
+    void ring_the_bell(QString color);
 };
 
 #endif  // MASTER_H

@@ -2,7 +2,6 @@
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QMenuBar* menu_bar = menuBar();
-    
     setMenuBar(menu_bar);
     
     QMenu* file_action = menu_bar->addMenu("File");
@@ -20,6 +19,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     
     QPushButton* edit_button = new QPushButton("Edit", this);
     tool_bar->addWidget(edit_button);
+    
+    QStatusBar* status_bar = statusBar();
+    setStatusBar(status_bar);
+    
+    QLabel* status_label = new QLabel("Issues", this);
+    status_bar->addPermanentWidget(status_label);
+    
+    QDockWidget* dock_widget = new QDockWidget("Projects", this);
+    addDockWidget(Qt::TopDockWidgetArea, dock_widget);
+    
+    QTextEdit* text_edit = new QTextEdit(this);
+    setCentralWidget(text_edit);
     
     this->resize(600, 400);
     this->setWindowTitle("Custom MainWindow");

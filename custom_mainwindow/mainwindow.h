@@ -1,11 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <QAction>
+#include <QDockWidget>
+#include <QLabel>
 #include <QMainWindow>
 #include <QMenuBar>
-#include <QAction>
-#include <QToolBar>
 #include <QPushButton>
+#include <QStatusBar>
+#include <QTextEdit>
+#include <QToolBar>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

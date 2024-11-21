@@ -67,7 +67,7 @@
     <number>1</number>
    </attribute>
    <widget class="QWidget" name="dockWidgetContents">
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButton_welcome">
      <property name="geometry">
       <rect>
        <x>3</x>
@@ -78,6 +78,58 @@
      </property>
      <property name="text">
       <string>Welcome</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_critical">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>80</y>
+       <width>100</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Critical</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_information">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>140</y>
+       <width>100</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Information</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_question">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>200</y>
+       <width>100</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Question</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_warning">
+     <property name="geometry">
+      <rect>
+       <x>3</x>
+       <y>260</y>
+       <width>100</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Warning</string>
      </property>
     </widget>
    </widget>

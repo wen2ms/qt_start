@@ -5,7 +5,7 @@
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
     
-    ui->pushButton->setIcon(QIcon(":/images/home.png"));
+    ui->pushButton_welcome->setIcon(QIcon(":/images/home.png"));
     
     QLabel* status_label = new QLabel(this);
     status_label->setText("status");
@@ -34,6 +34,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         non_modal_dialog->show();
     });
     
+    connect(ui->pushButton_critical, &QPushButton::clicked, this, [=]() {
+        QMessageBox::critical(this, "Critical", "Critical");
+    });
+        
+    connect(ui->pushButton_information, &QPushButton::clicked, this, [=]() {
+        QMessageBox::information(this, "Information", "Information");
+    });
+    
+    connect(ui->pushButton_question, &QPushButton::clicked, this, [=]() {
+        QMessageBox::question(this, "Question", "Question", QMessageBox::Save | QMessageBox::Cancel, QMessageBox::Cancel);
+    });
+    
+    connect(ui->pushButton_warning, &QPushButton::clicked, this, [=]() {
+        QMessageBox::warning(this, "Warning", "Warning");
+    });   
+
     
 }
 

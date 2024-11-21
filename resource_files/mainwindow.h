@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include <QDialog>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

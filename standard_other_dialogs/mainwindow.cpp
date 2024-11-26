@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
         bool ok;
         QFont selected_font = QFontDialog::getFont(&ok, QFont("Times New Roman", 12), this);
         if (ok) {
-            qDebug() << selected_font.family() << "Bold: " << selected_font.bold() << "Italic: " << selected_font.italic();
+            qDebug() << selected_font.family() << "Bold:" << selected_font.bold() << "Italic:" << selected_font.italic();
         }
     });
     

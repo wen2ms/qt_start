@@ -3,6 +3,7 @@
 
 #include <QDebug>
 #include <QWidget>
+#include <QListWidgetItem>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

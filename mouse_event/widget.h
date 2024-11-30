@@ -15,7 +15,10 @@ class Widget : public QWidget {
   public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
-
+    
+  protected:
+    bool eventFilter(QObject *obj, QEvent *ev) override;
+    
   private:
     Ui::Widget *ui;
 };

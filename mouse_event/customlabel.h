@@ -12,6 +12,8 @@ class CustomLabel : public QLabel {
   public:
     explicit CustomLabel(QWidget *parent = nullptr);
     
+    bool event(QEvent* e) override;
+    
   protected:
     void enterEvent(QEnterEvent* event) override;
     

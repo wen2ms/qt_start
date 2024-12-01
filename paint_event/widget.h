@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QPainter>
 #include <QPaintEvent>
-#include <QKeyEvent>
+#include <QTimer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -24,5 +24,7 @@ class Widget : public QWidget {
 
   private:
     Ui::Widget *ui;
+    
+    int pixmap_x_offset_;
 };
 #endif  // WIDGET_H

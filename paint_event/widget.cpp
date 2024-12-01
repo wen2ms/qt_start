@@ -2,8 +2,18 @@
 
 #include "./ui_widget.h"
 
-Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget), zoom_factor_(1.0) {
+Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget), pixmap_x_offset_(0) {
     ui->setupUi(this);
+    
+    QTimer* timer = new QTimer(this);
+    
+    connect(timer, &QTimer::timeout, this, [=]() {
+        pixmap_x_offset_ < this->width() ? pixmap_x_offset_ += 100 : pixmap_x_offset_ = 0;
+        
+        update();
+    });
+    
+    timer->start(500);
 }
 
 Widget::~Widget() {
@@ -48,5 +58,7 @@ void Widget::paintEvent(QPaintEvent*) {
     
     painter.setRenderHint(QPainter::Antialiasing);
     painter.drawEllipse(500, 300, 100, 50);
+    
+    painter.drawPixmap(pixmap_x_offset_, 0, QPixmap(":/images/football.png"));
 }
 

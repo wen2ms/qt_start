@@ -1,0 +1,3 @@
+Doberhman 4
+FranchBullDog 2
+Labrador 7

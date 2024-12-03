@@ -1,12 +1,14 @@
 #include "widget.h"
 
+#include <QDebug>
 #include <QFile>
+#include <QFileInfo>
+#include <QFileDialog>
+#include <QHBoxLayout>
+#include <QLineEdit>
 #include <QPushButton>
 #include <QTextEdit>
-#include <QLineEdit>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
-#include <QFileDialog>
 
 #include "file_read_write_config.h"
 
@@ -14,6 +16,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     QWidget* widget = new QWidget(this);
     
     QLineEdit* line_edit = new QLineEdit(this);
+    line_edit->setReadOnly(true);
     QPushButton* pushbutton = new QPushButton("Open File With...", this);
     
     QHBoxLayout* horizontal_layout = new QHBoxLayout();
@@ -62,13 +65,20 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         
         infile.close();
         
-        QFile outfile(QString(PROJECT_TEXT_DIR) + "/text.txt");
+        const QString kOutFilename = QString(PROJECT_TEXT_DIR) + "/text.txt";
+        
+        QFile outfile(kOutFilename);
         if (!outfile.open(QIODevice::WriteOnly | QIODevice::Text)) {
             return;
         }
         
         outfile.write(textedit_readall->toPlainText().toUtf8());
         outfile.close();
+        
+        QFileInfo infile_info(infile);
+        
+        qDebug() << "Size:" << infile_info.size() << "Extension:" << infile_info.suffix() << "Filename:" << infile_info.fileName();
+        qDebug() << "Created time" << infile_info.birthTime().toString();
     });
     
     

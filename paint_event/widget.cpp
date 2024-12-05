@@ -8,12 +8,12 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget), pixmap_x_
     QTimer* timer = new QTimer(this);
     
     connect(timer, &QTimer::timeout, this, [=]() {
-        pixmap_x_offset_ < this->width() ? pixmap_x_offset_ += 100 : pixmap_x_offset_ = 0;
+        pixmap_x_offset_++;
         
         update();
     });
     
-    timer->start(500);
+    timer->start(10);
 }
 
 Widget::~Widget() {
@@ -59,6 +59,11 @@ void Widget::paintEvent(QPaintEvent*) {
     painter.setRenderHint(QPainter::Antialiasing);
     painter.drawEllipse(500, 300, 100, 50);
     
+    QPixmap pix = QPixmap(":/images/football.png");
+    
+    if (pixmap_x_offset_ >= this->width()) {
+        pixmap_x_offset_ = -pix.width();
+    }
     painter.drawPixmap(pixmap_x_offset_, 0, QPixmap(":/images/football.png"));
 }
 

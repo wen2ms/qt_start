@@ -44,7 +44,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     this->resize(800, 600);
     
     connect(pushbutton, &QPushButton::clicked, this, [=]() {
-        const QString kFilename = QFileDialog::getOpenFileName(this);
+        const QString kFilename = QFileDialog::getOpenFileName(this, QString(), PROJECT_SOURCE_DIR);
         line_edit->setText(kFilename);
         
         QFile infile(kFilename);
@@ -65,7 +65,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         
         infile.close();
         
-        const QString kOutFilename = QString(PROJECT_TEXT_DIR) + "/text.txt";
+        const QString kOutFilename = QString(PROJECT_SOURCE_DIR) + "/text.txt";
         
         QFile outfile(kOutFilename);
         if (!outfile.open(QIODevice::WriteOnly | QIODevice::Text)) {

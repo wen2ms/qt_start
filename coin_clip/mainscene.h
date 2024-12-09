@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QPixmap>
 
+#include "select_level_scene.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainScene;
@@ -23,5 +25,7 @@ class MainScene : public QMainWindow {
     Ui::MainScene *ui;
     
     const QSize kMainsceneSize;
+    
+    SelectLevelScene* select_level_scene_;
 };
 #endif  // MAINSCENE_H

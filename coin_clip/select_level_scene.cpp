@@ -1,10 +1,11 @@
 #include "select_level_scene.h"
 
 #include <QPainter>
+#include <QLabel>
 
 #include "mypush_button.h"
 
-SelectLevelScene::SelectLevelScene(QWidget *parent) : QMainWindow{parent}, kSelectLevelSceneSize(350, 600) {
+SelectLevelScene::SelectLevelScene(const QSize& size, QWidget *parent) : QMainWindow{parent}, kSelectLevelSceneSize(size) {
     this->setFixedSize(kSelectLevelSceneSize);
     
     this->setWindowTitle("Select Level");
@@ -13,11 +14,37 @@ SelectLevelScene::SelectLevelScene(QWidget *parent) : QMainWindow{parent}, kSele
     
     back_button->setParent(this);
     
-    back_button->move(this->width() - back_button->width(), this->height() * 0.8);
+    back_button->move(this->width() - back_button->width(), this->height() * 0.9);
     
     connect(back_button, &QPushButton::clicked, this, [=]() {
         emit this->press_back();
     });
+    
+    for (int i = 0; i < 20; ++i) {
+        MyPushButton* select_button = new MyPushButton(":/resource/LevelIcon.png");
+        
+        select_button->setParent(this);
+
+        select_button->move(this->width() * 0.5 - select_button->width() * 4.6 * 0.5 + select_button->width() * (i % 4) * 1.2,
+                            this->height() * 0.2 + select_button->height() * (i / 4) * 1.3);
+        
+        connect(select_button, &QPushButton::clicked, this, [=]() {
+            qDebug() << QString("%1 Level clicked").arg(i + 1);
+        });
+        
+        QLabel* level_label = new QLabel(QString::number(i + 1), this);
+        
+        level_label->setFixedSize(select_button->size());
+        
+        level_label->move(this->width() * 0.5 - select_button->width() * 4.6 * 0.5 + select_button->width() * (i % 4) * 1.2,
+                           this->height() * 0.2 + select_button->height() * (i / 4) * 1.3);
+        
+        level_label->setAlignment(Qt::AlignCenter);
+        
+        level_label->setStyleSheet("QLabel{color:black;}");
+        
+        level_label->setAttribute(Qt::WA_TransparentForMouseEvents);
+    }
 }
 
 void SelectLevelScene::paintEvent(QPaintEvent* event) {

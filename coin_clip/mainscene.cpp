@@ -20,7 +20,7 @@ MainScene::MainScene(QWidget* parent)
     start_button->setParent(this);
     start_button->move(this->width() * 0.5 - start_button->width() * 0.5, this->height() * 0.7);
     
-    select_level_scene_ = new SelectLevelScene;
+    select_level_scene_ = new SelectLevelScene(this->size());
     
     connect(select_level_scene_, &SelectLevelScene::press_back, this, [=]() {
         QTimer::singleShot(500, this, [=]() {
@@ -34,7 +34,7 @@ MainScene::MainScene(QWidget* parent)
         
         start_button->bounce_in_animation();
         
-        QTimer::singleShot(500, this, [=]() {
+        QTimer::singleShot(400, this, [=]() {
             this->hide();
             select_level_scene_->show();
         });

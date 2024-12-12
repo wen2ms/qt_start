@@ -9,18 +9,18 @@
 #include "mypush_button.h"
 
 MainScene::MainScene(QWidget* parent)
-    : QMainWindow(parent), ui(new Ui::MainScene), kMainsceneSize(350, 600), select_level_scene_(nullptr) {
+    : QMainWindow(parent), ui(new Ui::MainScene), select_level_scene_(nullptr) {
     ui->setupUi(this);
     
     this->setWindowTitle("Coin Filp");
     
-    this->setFixedSize(kMainsceneSize);
+    this->setFixedSize(350, 600);
     
     MyPushButton* start_button = new MyPushButton(":/resource/MenuSceneStartButton.png");
     start_button->setParent(this);
     start_button->move(this->width() * 0.5 - start_button->width() * 0.5, this->height() * 0.7);
     
-    select_level_scene_ = new SelectLevelScene(this->size());
+    select_level_scene_ = new SelectLevelScene;
     
     connect(select_level_scene_, &SelectLevelScene::press_back, this, [=]() {
         QTimer::singleShot(500, this, [=]() {

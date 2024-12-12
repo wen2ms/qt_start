@@ -2,11 +2,12 @@
 
 #include <QPainter>
 #include <QLabel>
+#include <QTimer>
 
 #include "mypush_button.h"
 
-SelectLevelScene::SelectLevelScene(const QSize& size, QWidget *parent) : QMainWindow{parent}, kSelectLevelSceneSize(size) {
-    this->setFixedSize(kSelectLevelSceneSize);
+SelectLevelScene::SelectLevelScene(QWidget *parent) : QMainWindow{parent}, play_scene_(nullptr) {
+    this->setFixedSize(350, 600);
     
     this->setWindowTitle("Select Level");
     
@@ -29,7 +30,21 @@ SelectLevelScene::SelectLevelScene(const QSize& size, QWidget *parent) : QMainWi
                             this->height() * 0.2 + select_button->height() * (i / 4) * 1.3);
         
         connect(select_button, &QPushButton::clicked, this, [=]() {
-            qDebug() << QString("%1 Level clicked").arg(i + 1);
+            if (play_scene_ == nullptr) {
+                this->hide();
+                
+                play_scene_ = new PlayScene(i + 1);
+                play_scene_->show();
+                
+                connect(play_scene_, &PlayScene::press_back, this, [=]() {
+                    QTimer::singleShot(400, this, [=]() {
+                        this->show();
+                        
+                        delete play_scene_;
+                        play_scene_ = nullptr;
+                    });
+                });
+            }
         });
         
         QLabel* level_label = new QLabel(QString::number(i + 1), this);

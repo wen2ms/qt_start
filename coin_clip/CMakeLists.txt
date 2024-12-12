@@ -26,6 +26,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         resource.qrc
         mypush_button.h mypush_button.cpp
         select_level_scene.h select_level_scene.cpp
+        play_scene.h play_scene.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET coin_clip APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

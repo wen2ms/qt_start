@@ -24,8 +24,6 @@ class MainScene : public QMainWindow {
   private:
     Ui::MainScene *ui;
     
-    const QSize kMainsceneSize;
-    
     SelectLevelScene* select_level_scene_;
 };
 #endif  // MAINSCENE_H

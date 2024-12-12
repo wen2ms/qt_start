@@ -2,13 +2,13 @@
 #define SELECT_LEVEL_SCENE_H
 
 #include <QMainWindow>
+#include "play_scene.h"
 
 class SelectLevelScene : public QMainWindow {
     Q_OBJECT
   public:
-    explicit SelectLevelScene(QWidget *parent = nullptr) {};
-    
-    explicit SelectLevelScene(const QSize& size, QWidget *parent = nullptr);
+
+    explicit SelectLevelScene(QWidget *parent = nullptr);
     
     void paintEvent(QPaintEvent* event) override;
     
@@ -16,7 +16,7 @@ class SelectLevelScene : public QMainWindow {
     void press_back();
     
   private:
-    const QSize kSelectLevelSceneSize;
+    PlayScene* play_scene_;
 };
 
 #endif  // SELECT_LEVEL_SCENE_H

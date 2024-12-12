@@ -32,7 +32,20 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
     
     level_label->setText(QString("Level: %1").arg(level_));
     
-    level_label->setGeometry(this->width() * 0.1, this->height() * 0.9, this->width() * 0.4, this->height() * 0.1);
+    level_label->setGeometry(0, this->height() * 0.88, this->width() * 0.4, this->height() * 0.1);
+    
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            QLabel* coin_label = new QLabel(this);
+            
+            QPixmap coin_pixmap(":/resource/BoardNode.png");
+            
+            coin_label->setPixmap(coin_pixmap);
+            
+            coin_label->setGeometry(this->width() * 0.5 - coin_pixmap.width() * 4.6 * 0.5 + coin_pixmap.width() * i * 1.2,
+                                    this->height() * 0.3 + coin_pixmap.height() * j * 1.2, coin_pixmap.width(), coin_pixmap.height());
+        }
+    }
 }
 
 void PlayScene::paintEvent(QPaintEvent* event) {

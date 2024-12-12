@@ -5,6 +5,7 @@
 #include <QLabel>
 
 #include "mypush_button.h"
+#include "coin.h"
 
 PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(level) {
     this->setFixedSize(350, 600);
@@ -44,6 +45,12 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             
             coin_label->setGeometry(this->width() * 0.5 - coin_pixmap.width() * 4.6 * 0.5 + coin_pixmap.width() * i * 1.2,
                                     this->height() * 0.3 + coin_pixmap.height() * j * 1.2, coin_pixmap.width(), coin_pixmap.height());
+            
+            Coin* coin = new Coin(QString(":/resource/Coin000%1").arg(i + j + 1), this);
+
+            coin->move(this->width() * 0.5 - coin_pixmap.width() * 4.6 * 0.5 + coin_pixmap.width() * i * 1.2 +
+                       coin_pixmap.width() * 0.5 - coin->width() * 0.5,
+                       this->height() * 0.3 + coin_pixmap.height() * j * 1.2 + coin_pixmap.height() * 0.5 - coin->height() * 0.5);
         }
     }
 }

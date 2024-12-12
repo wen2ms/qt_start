@@ -50,10 +50,12 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             QPixmap coin_background_pixmap(":/resource/BoardNode.png");
             
             coin_background_label->setPixmap(coin_background_pixmap);
-            
-            coin_background_label->setGeometry(this->width() * 0.5 - coin_background_pixmap.width() * 4.6 * 0.5 + coin_background_pixmap.width() * i * 1.2,
-                                    this->height() * 0.3 + coin_background_pixmap.height() * j * 1.2, coin_background_pixmap.width(), coin_background_pixmap.height());
-            
+
+            coin_background_label->setGeometry(
+                this->width() * 0.5 - coin_background_pixmap.width() * 4.6 * 0.5 + coin_background_pixmap.width() * i * 1.2,
+                this->height() * 0.3 + coin_background_pixmap.height() * j * 1.2, coin_background_pixmap.width(),
+                coin_background_pixmap.height());
+
             QString coin_image;
             if (level_setting_[i][j] == 1) {
                 coin_image = ":/resource/Coin0001";    
@@ -63,9 +65,15 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             
             Coin* coin = new Coin(coin_image, this);
 
-            coin->move(this->width() * 0.5 - coin_background_pixmap.width() * 4.6 * 0.5 + coin_background_pixmap.width() * i * 1.2 +
-                       coin_background_pixmap.width() * 0.5 - coin->width() * 0.5,
-                       this->height() * 0.3 + coin_background_pixmap.height() * j * 1.2 + coin_background_pixmap.height() * 0.5 - coin->height() * 0.5);
+            coin->move(this->width() * 0.5 - coin_background_pixmap.width() * 4.6 * 0.5 +
+                           coin_background_pixmap.width() * i * 1.2 + coin_background_pixmap.width() * 0.5 - coin->width() * 0.5,
+                       this->height() * 0.3 + coin_background_pixmap.height() * j * 1.2 + coin_background_pixmap.height() * 0.5 -
+                           coin->height() * 0.5);
+            coin->index_x_ = i;
+            coin->index_y_ = j;
+            coin->flipped_ = level_setting_[i][j];
+            
+            connect(coin, &QPushButton::clicked, coin, &Coin::flip);
         }
     }
 }

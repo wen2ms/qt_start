@@ -15,6 +15,8 @@ class PlayScene : public QMainWindow {
     
   private:
     int level_;
+    
+    int level_setting_[4][4];
 };
 
 #endif  // PLAY_SCENE_H

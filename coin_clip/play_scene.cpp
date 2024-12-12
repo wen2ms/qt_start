@@ -6,6 +6,7 @@
 
 #include "mypush_button.h"
 #include "coin.h"
+#include "level_config.h"
 
 PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(level) {
     this->setFixedSize(350, 600);
@@ -35,22 +36,36 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
     
     level_label->setGeometry(0, this->height() * 0.88, this->width() * 0.4, this->height() * 0.1);
     
+    LevelConfig level_config;
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
-            QLabel* coin_label = new QLabel(this);
+            level_setting_[i][j] = level_config.level_map_[level_][i][j];
+        }
+    }
+    
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            QLabel* coin_background_label = new QLabel(this);
             
-            QPixmap coin_pixmap(":/resource/BoardNode.png");
+            QPixmap coin_background_pixmap(":/resource/BoardNode.png");
             
-            coin_label->setPixmap(coin_pixmap);
+            coin_background_label->setPixmap(coin_background_pixmap);
             
-            coin_label->setGeometry(this->width() * 0.5 - coin_pixmap.width() * 4.6 * 0.5 + coin_pixmap.width() * i * 1.2,
-                                    this->height() * 0.3 + coin_pixmap.height() * j * 1.2, coin_pixmap.width(), coin_pixmap.height());
+            coin_background_label->setGeometry(this->width() * 0.5 - coin_background_pixmap.width() * 4.6 * 0.5 + coin_background_pixmap.width() * i * 1.2,
+                                    this->height() * 0.3 + coin_background_pixmap.height() * j * 1.2, coin_background_pixmap.width(), coin_background_pixmap.height());
             
-            Coin* coin = new Coin(QString(":/resource/Coin000%1").arg(i + j + 1), this);
+            QString coin_image;
+            if (level_setting_[i][j] == 1) {
+                coin_image = ":/resource/Coin0001";    
+            } else {
+                coin_image = ":/resource/Coin0008";    
+            }
+            
+            Coin* coin = new Coin(coin_image, this);
 
-            coin->move(this->width() * 0.5 - coin_pixmap.width() * 4.6 * 0.5 + coin_pixmap.width() * i * 1.2 +
-                       coin_pixmap.width() * 0.5 - coin->width() * 0.5,
-                       this->height() * 0.3 + coin_pixmap.height() * j * 1.2 + coin_pixmap.height() * 0.5 - coin->height() * 0.5);
+            coin->move(this->width() * 0.5 - coin_background_pixmap.width() * 4.6 * 0.5 + coin_background_pixmap.width() * i * 1.2 +
+                       coin_background_pixmap.width() * 0.5 - coin->width() * 0.5,
+                       this->height() * 0.3 + coin_background_pixmap.height() * j * 1.2 + coin_background_pixmap.height() * 0.5 - coin->height() * 0.5);
         }
     }
 }

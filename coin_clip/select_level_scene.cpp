@@ -44,10 +44,12 @@ SelectLevelScene::SelectLevelScene(QWidget *parent) : QMainWindow{parent}, play_
                 this->hide();
                 
                 play_scene_ = new PlayScene(i + 1);
+                play_scene_->setGeometry(this->geometry());
                 play_scene_->show();
                 
                 connect(play_scene_, &PlayScene::press_back, this, [=]() {
                     QTimer::singleShot(400, this, [=]() {
+                        this->setGeometry(play_scene_->geometry());
                         this->show();
                         
                         delete play_scene_;

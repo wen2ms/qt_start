@@ -29,6 +29,7 @@ MainScene::MainScene(QWidget* parent)
     connect(select_level_scene_, &SelectLevelScene::press_back, this, [=]() {
         QTimer::singleShot(500, this, [=]() {
             select_level_scene_->hide();
+            this->setGeometry(select_level_scene_->geometry());
             this->show();
         });
     });
@@ -45,6 +46,7 @@ MainScene::MainScene(QWidget* parent)
         
         QTimer::singleShot(400, this, [=]() {
             this->hide();
+            select_level_scene_->setGeometry(this->geometry());
             select_level_scene_->show();
         });
 

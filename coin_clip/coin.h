@@ -12,6 +12,8 @@ class Coin : public QPushButton {
     
     void load(const QString& filename);
     
+    void mousePressEvent(QMouseEvent* event) override;
+    
     int index_x_;
     int index_y_;
     bool flipped_;
@@ -25,6 +27,8 @@ class Coin : public QPushButton {
     
     int flipping_max_ = 8;
     int flipping_min_ = 1;
+    
+    bool is_flipping;
 };
 
 #endif  // COIN_H

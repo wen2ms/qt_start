@@ -73,7 +73,10 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             coin->index_y_ = j;
             coin->flipped_ = level_setting_[i][j];
             
-            connect(coin, &QPushButton::clicked, coin, &Coin::flip);
+            connect(coin, &QPushButton::clicked, coin, [=]() {
+                coin->flip();
+                this->level_setting_[i][j] = !this->level_setting_[i][j];
+            });
         }
     }
 }

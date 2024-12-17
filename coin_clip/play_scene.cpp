@@ -73,11 +73,39 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             coin->index_y_ = j;
             coin->flipped_ = level_setting_[i][j];
             
+            coins_map_[i][j] = coin;
+            
             connect(coin, &QPushButton::clicked, coin, [=]() {
                 coin->flip();
                 this->level_setting_[i][j] = !this->level_setting_[i][j];
+                
+                QTimer::singleShot(200, this, [=]() {
+                    flip_around(coin->index_x_, coin->index_y_);
+                });
             });
         }
+    }
+}
+
+void PlayScene::flip_around(int x, int y) {
+    if (x + 1 <= 3) {
+        coins_map_[x + 1][y]->flip();
+        this->level_setting_[x + 1][y] = !this->level_setting_[x + 1][y];
+    }
+
+    if (x - 1 >= 0) {
+        coins_map_[x - 1][y]->flip();
+        this->level_setting_[x - 1][y] = !this->level_setting_[x - 1][y];
+    }
+
+    if (y + 1 <= 3) {
+        coins_map_[x][y + 1]->flip();
+        this->level_setting_[x][y + 1] = !this->level_setting_[x][y + 1];
+    }
+
+    if (y - 1 >= 0) {
+        coins_map_[x][y - 1]->flip();
+        this->level_setting_[x][y - 1] = !this->level_setting_[x][y - 1];
     }
 }
 
@@ -95,3 +123,4 @@ void PlayScene::paintEvent(QPaintEvent* event) {
     painter.drawPixmap(this->width() * 0.1, scene_background.height() * 0.1,
                        scene_background.width(), scene_background.height(), scene_background);
 }
+

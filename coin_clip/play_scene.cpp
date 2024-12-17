@@ -4,12 +4,14 @@
 #include <QTimer>
 #include <QLabel>
 #include <QPropertyAnimation>
+#include <QSoundEffect>
 
 #include "mypush_button.h"
 #include "coin.h"
 #include "level_config.h"
 
-PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(level), win_label_(new QLabel(this)) {
+PlayScene::PlayScene(int level, QWidget* parent)
+    : QMainWindow{parent}, level_(level), win_label_(new QLabel(this)), win_sound_(new QSoundEffect(this)) {
     this->setFixedSize(350, 600);
     
     this->setWindowTitle("Level " + QString::number(level_));
@@ -28,7 +30,12 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
     
     back_button->setParent(this);
     
+    QSoundEffect* back_sound = new QSoundEffect(this);
+    back_sound->setSource(QUrl::fromLocalFile(":/resource/BackButtonSound.wav"));
+    
     connect(back_button, &QPushButton::clicked, this, [=]() {
+        back_sound->play();
+        
         emit press_back();
     });
     
@@ -51,6 +58,11 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             level_setting_[i][j] = level_config.level_map_[level_][i][j];
         }
     }
+    
+    QSoundEffect* flip_sound = new QSoundEffect(this);
+    flip_sound->setSource(QUrl::fromLocalFile(":/resource/CoinFlipSound.wav"));
+    
+    win_sound_->setSource(QUrl::fromLocalFile(":/resource/LevelWinSound.wav"));
     
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
@@ -85,6 +97,8 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
             coins_map_[i][j] = coin;
             
             connect(coin, &QPushButton::clicked, coin, [=]() {
+                flip_sound->play();
+                
                 coin->flip();
                 this->level_setting_[i][j] = !this->level_setting_[i][j];
                 
@@ -147,6 +161,8 @@ void PlayScene::is_win() {
     }
     
     Coin::is_win_ = true;
+    
+    win_sound_->play();
     
     QPropertyAnimation* pass_animation = new QPropertyAnimation(win_label_, "geometry");
     

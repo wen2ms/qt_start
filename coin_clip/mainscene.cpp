@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <QTimer>
+#include <QSoundEffect>
 
 #include "./ui_mainscene.h"
 #include "mypush_button.h"
@@ -22,6 +23,9 @@ MainScene::MainScene(QWidget* parent)
     
     select_level_scene_ = new SelectLevelScene;
     
+    QSoundEffect* back_sound = new QSoundEffect(this);
+    back_sound->setSource(QUrl::fromLocalFile(":/resource/BackButtonSound.wav"));
+    
     connect(select_level_scene_, &SelectLevelScene::press_back, this, [=]() {
         QTimer::singleShot(500, this, [=]() {
             select_level_scene_->hide();
@@ -29,7 +33,12 @@ MainScene::MainScene(QWidget* parent)
         });
     });
     
+    QSoundEffect* start_sound = new QSoundEffect(this);
+    start_sound->setSource(QUrl::fromLocalFile(":/resource/TapButtonSound.wav"));
+    
     connect(start_button, &QPushButton::clicked, this, [=]() {
+        start_sound->play();
+        
         start_button->bounce_out_animation();
         
         start_button->bounce_in_animation();

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QLabel>
+#include <QSoundEffect>
 
 #include "coin.h"
 
@@ -28,6 +29,7 @@ class PlayScene : public QMainWindow {
     Coin* coins_map_[4][4];
     
     QLabel* win_label_;
+    QSoundEffect* win_sound_;
 };
 
 #endif  // PLAY_SCENE_H

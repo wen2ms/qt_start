@@ -2,6 +2,7 @@
 #define PLAY_SCENE_H
 
 #include <QMainWindow>
+#include <QLabel>
 
 #include "coin.h"
 
@@ -25,6 +26,8 @@ class PlayScene : public QMainWindow {
     int level_setting_[4][4];
     
     Coin* coins_map_[4][4];
+    
+    QLabel* win_label_;
 };
 
 #endif  // PLAY_SCENE_H

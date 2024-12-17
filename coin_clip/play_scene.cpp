@@ -9,18 +9,16 @@
 #include "coin.h"
 #include "level_config.h"
 
-PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(level) {
+PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(level), win_label_(new QLabel(this)) {
     this->setFixedSize(350, 600);
     
     this->setWindowTitle("Level " + QString::number(level_));
     
     Coin::is_win_ = false;
     
-    QLabel* win_label = new QLabel(this);
     QPixmap passed_background(":/resource/LevelCompletedDialogBg.png");
-    
-    win_label->setPixmap(passed_background);
-    win_label->setGeometry(this->width() * 0.5 - passed_background.width() * 0.5, -passed_background.height(),
+    win_label_->setPixmap(passed_background);
+    win_label_->setGeometry(this->width() * 0.5 - passed_background.width() * 0.5, -passed_background.height(),
                            passed_background.width(), passed_background.height());
     
     MyPushButton* back_button = new MyPushButton(":/resource/BackButton.png", ":/resource/BackButtonSelected.png");
@@ -92,18 +90,6 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
                 QTimer::singleShot(200, this, [=]() {
                     flip_around(coin->index_x_, coin->index_y_);
                     this->is_win();
-                    
-                    QPropertyAnimation* pass_animation = new QPropertyAnimation(win_label, "geometry");
-                    
-                    pass_animation->setDuration(1000);
-                    
-                    pass_animation->setStartValue(QRect(win_label->x(), win_label->y(), win_label->width(), win_label->height()));
-                    
-                    pass_animation->setEndValue(QRect(win_label->x(), win_label->y() + 150, win_label->width(), win_label->height()));
-                    
-                    pass_animation->setEasingCurve(QEasingCurve::OutBounce);
-                    
-                    pass_animation->start();
                 });
             });
         }
@@ -157,5 +143,17 @@ void PlayScene::is_win() {
     }
     
     Coin::is_win_ = true;
+    
+    QPropertyAnimation* pass_animation = new QPropertyAnimation(win_label_, "geometry");
+    
+    pass_animation->setDuration(1000);
+    
+    pass_animation->setStartValue(QRect(win_label_->x(), win_label_->y(), win_label_->width(), win_label_->height()));
+    
+    pass_animation->setEndValue(QRect(win_label_->x(), win_label_->y() + 150, win_label_->width(), win_label_->height()));
+    
+    pass_animation->setEasingCurve(QEasingCurve::OutBounce);
+    
+    pass_animation->start();
 }
 

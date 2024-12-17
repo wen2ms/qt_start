@@ -18,6 +18,8 @@ class Coin : public QPushButton {
     int index_y_;
     bool flipped_;
     
+    static bool is_win_;
+    
   public slots:
     void flip();
     

@@ -14,6 +14,8 @@ class PlayScene : public QMainWindow {
     
     void flip_around(int x, int y);
     
+    void is_win();
+    
   signals:
     void press_back();
     

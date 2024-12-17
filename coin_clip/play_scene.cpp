@@ -13,6 +13,8 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
     
     this->setWindowTitle("Level " + QString::number(level_));
     
+    Coin::is_win_ = false;
+    
     MyPushButton* back_button = new MyPushButton(":/resource/BackButton.png", ":/resource/BackButtonSelected.png");
     
     back_button->move(this->width() - back_button->width(), this->height() * 0.9);
@@ -81,6 +83,7 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
                 
                 QTimer::singleShot(200, this, [=]() {
                     flip_around(coin->index_x_, coin->index_y_);
+                    this->is_win();
                 });
             });
         }
@@ -122,5 +125,18 @@ void PlayScene::paintEvent(QPaintEvent* event) {
     
     painter.drawPixmap(this->width() * 0.1, scene_background.height() * 0.1,
                        scene_background.width(), scene_background.height(), scene_background);
+}
+
+void PlayScene::is_win() {
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            if (!this->level_setting_[i][j]) {
+                return;
+            }
+        }
+    }
+    
+    Coin::is_win_ = true;
+    qDebug() << "Congratulations for passing this level!";
 }
 

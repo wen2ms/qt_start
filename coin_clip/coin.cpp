@@ -3,6 +3,8 @@
 #include <QPixmap>
 #include <QDebug>
 
+bool Coin::is_win_ = false;
+
 Coin::Coin(const QString& coin_image, QWidget* parent)
     : QPushButton{parent}, timer_on_(new QTimer(this)), timer_off_(new QTimer(this)), is_flipping(false) {
     load(coin_image);
@@ -45,7 +47,7 @@ void Coin::load(const QString& filename) {
 }
 
 void Coin::mousePressEvent(QMouseEvent* event) {
-    if (this->is_flipping) {
+    if (this->is_flipping || this->is_win_) {
         return;
     } else {
         return QPushButton::mousePressEvent(event);

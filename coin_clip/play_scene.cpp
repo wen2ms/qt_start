@@ -15,6 +15,7 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
     this->setWindowTitle("Level " + QString::number(level_));
     
     Coin::is_win_ = false;
+    Coin::is_click_ = false;
     
     QPixmap passed_background(":/resource/LevelCompletedDialogBg.png");
     win_label_->setPixmap(passed_background);
@@ -87,8 +88,11 @@ PlayScene::PlayScene(int level, QWidget *parent) : QMainWindow{parent}, level_(l
                 coin->flip();
                 this->level_setting_[i][j] = !this->level_setting_[i][j];
                 
+                Coin::is_click_ = true;
+                
                 QTimer::singleShot(200, this, [=]() {
                     flip_around(coin->index_x_, coin->index_y_);
+                    Coin::is_click_ = false;
                     this->is_win();
                 });
             });
